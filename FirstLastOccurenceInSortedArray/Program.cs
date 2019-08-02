@@ -76,27 +76,30 @@ namespace FirstLastOccurenceInSortedArray
         }
 
 
-
-
-
-
+                     
         public int[] GetRange(int[] sortedArray, int elementX)
         {
             int[] outputArray = { -1, -1 };
             int outputArrayPosition = 0;
+            
 
             for (int i = 0; i < sortedArray.Length; i++)
             {
                 if (elementX == sortedArray[i])
                 {
                     outputArray[outputArrayPosition] = i;
-                    if (outputArrayPosition == 0)
+
+                    if (outputArrayPosition < (outputArray.Length -1))
                     {
                         outputArrayPosition++;
                     }
-
-
                 }
+
+                if (elementX < sortedArray[i])
+                {
+                    break;
+                }
+                    
             }
 
             return outputArray;
