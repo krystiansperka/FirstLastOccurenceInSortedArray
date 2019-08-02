@@ -51,37 +51,41 @@ namespace FirstLastOccurenceInSortedArray
         {
             int[] testArray = { 1, 2, 2, 2, 2, 3, 4, 7, 8, 8 };
             int x = 2;
-            return GetRange(testArray, x);
+            //return GetRange(testArray, x);
+            return GetRangeBiDirectional(testArray, x);
         }
 
         public int[] RunTest2()
         {
             int[] testArray = { 1, 3, 3, 5, 7, 8, 9, 9, 9, 15 };
             int x = 9;
-            return GetRange(testArray, x);
+            //return GetRange(testArray, x);
+            return GetRangeBiDirectional(testArray, x);
         }
 
         public int[] RunTest3()
         {
             int[] testArray = { 100, 150, 150, 153 };
             int x = 150;
-            return GetRange(testArray, x);
+            //return GetRange(testArray, x);
+            return GetRangeBiDirectional(testArray, x);
         }
 
         public int[] RunTest4()
         {
             int[] testArray = { 1, 2, 3, 4, 5, 6, 10 };
             int x = 9;
-            return GetRange(testArray, x);
+            //return GetRange(testArray, x);
+            return GetRangeBiDirectional(testArray, x);
         }
 
 
-                     
+
         public int[] GetRange(int[] sortedArray, int elementX)
         {
             int[] outputArray = { -1, -1 };
             int outputArrayPosition = 0;
-            
+
 
             for (int i = 0; i < sortedArray.Length; i++)
             {
@@ -89,7 +93,7 @@ namespace FirstLastOccurenceInSortedArray
                 {
                     outputArray[outputArrayPosition] = i;
 
-                    if (outputArrayPosition < (outputArray.Length -1))
+                    if (outputArrayPosition < (outputArray.Length - 1))
                     {
                         outputArrayPosition++;
                     }
@@ -99,11 +103,47 @@ namespace FirstLastOccurenceInSortedArray
                 {
                     break;
                 }
-                    
+
             }
 
             return outputArray;
         }
 
+        public int[] GetRangeBiDirectional(int[] sortedArray, int elementX)
+        {
+            int[] outputArray = { -1, -1 };
+            //int outputArrayPosition = 0;
+
+            int lowIndex = 0;
+            int highIndex = sortedArray.Length - 1;
+
+            while (lowIndex < highIndex)
+            {
+                if (sortedArray[lowIndex] == elementX & outputArray[0] == -1)
+                {
+                    outputArray[0] = lowIndex;
+                }
+                else if (sortedArray[lowIndex] < elementX)
+                {
+                    lowIndex++;
+                }
+
+                if (sortedArray[highIndex] == elementX & outputArray[1] == -1)
+                {
+                    outputArray[1] = highIndex;
+                }
+                else if (sortedArray[highIndex] > elementX)
+                {
+                    highIndex--;
+                }
+
+                if (outputArray[0] != -1 & outputArray[1] != -1)
+                    break; 
+
+            }
+
+
+            return outputArray;
+        }
     }
 }
