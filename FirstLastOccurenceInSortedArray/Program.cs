@@ -109,6 +109,61 @@ namespace FirstLastOccurenceInSortedArray
             return outputArray;
         }
 
+        public int[] GetRange_PP_1(int[] sortedArray, int ElementX)
+        {
+            int firstOccurenceOfElementX = -1;
+            int lastOccurenceOfElementX = -1;
+
+            for (int i = 0; i < sortedArray.Length -1; i++)
+                if (sortedArray[i] == ElementX) { firstOccurenceOfElementX = i; break; }
+
+            if (firstOccurenceOfElementX > 0)
+                for (int i = firstOccurenceOfElementX; i < sortedArray.Length; i++)
+                    if (sortedArray[i] == ElementX) { lastOccurenceOfElementX = i; break; }
+
+            return new[] { firstOccurenceOfElementX, lastOccurenceOfElementX };
+        }
+
+
+        public int[] GetRange_PP_2(int[] sortedArray, int elementX)
+        {
+            int[] outputArray = { -1, -1 };
+            int minIndex = 0;
+            int maxIndex = sortedArray.Length - 1;
+
+            while (minIndex <= maxIndex)
+            {
+                int midIndex = (minIndex + maxIndex) / 2;
+                if (elementX == sortedArray[midIndex])
+                {
+                    for (int i = midIndex; i>= 0; i--)
+                    {
+                        if (elementX > sortedArray[i]) break;
+                        outputArray[0] = i;
+                    }
+
+                    for (int i = midIndex; i < sortedArray.Length; i++)
+                    {
+                        if (elementX < sortedArray[i]) break;
+                        outputArray[1] = i;
+                    }
+
+                    return outputArray;
+
+                }
+                else if (elementX < sortedArray[midIndex])
+                {
+                    maxIndex = midIndex - 1;
+                }
+                else
+                {
+                    minIndex = midIndex + 1;
+                }
+            }
+
+            return outputArray;
+        }
+
         public int[] GetRangeBiDirectional(int[] sortedArray, int elementX)
         {
             int[] outputArray = { -1, -1 };
